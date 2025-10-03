@@ -10,11 +10,20 @@
       position: absolute; top: 10px; left: 10px; color: white;
       font-size: 18px; font-family: Arial, sans-serif;
     }
+    button {
+      position: absolute; left: 10px; padding: 5px 10px;
+      font-size: 14px; cursor: pointer;
+    }
+    #pauseBtn { top: 40px; }
+    #restartBtn { top: 70px; display: none; }
   </style>
 </head>
 <body>
   <div id="hud">Score: 0 | High Score: 0</div>
-  <!-- 用 CDN 引入 Three.js -->
+  <button id="pauseBtn">Pause</button>
+  <button id="restartBtn">Restart</button>
+
+  <!-- Three.js 用 CDN -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
   <script src="game.js"></script>
   <script>
