@@ -4,6 +4,7 @@ let renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
+// 卡车
 let truck = new THREE.Mesh(
   new THREE.BoxGeometry(1,1,2),
   new THREE.MeshBasicMaterial({color: 0xff0000})
@@ -11,6 +12,7 @@ let truck = new THREE.Mesh(
 scene.add(truck);
 truck.position.y = 0.5;
 
+// 道路
 let road = new THREE.Mesh(
   new THREE.PlaneGeometry(10, 200),
   new THREE.MeshBasicMaterial({color: 0x444444, side: THREE.DoubleSide})
@@ -18,9 +20,11 @@ let road = new THREE.Mesh(
 road.rotation.x = Math.PI/2;
 scene.add(road);
 
+// 摄像机
 camera.position.set(0, 5, 8);
 camera.lookAt(0,0,0);
 
+// 分数
 let score = 0;
 let highScore = localStorage.getItem("highScore") || 0;
 let speed = 0.1;
@@ -28,6 +32,7 @@ let gameOver = false;
 let keys = {};
 let obstacles = [];
 
+// 键盘控制
 document.addEventListener("keydown", (e)=> keys[e.key] = true);
 document.addEventListener("keyup", (e)=> keys[e.key] = false);
 
@@ -36,6 +41,7 @@ function updateHUD() {
     "Score: " + score + " | High Score: " + highScore;
 }
 
+// 生成障碍物
 function createObstacle() {
   let obstacle = new THREE.Mesh(
     new THREE.BoxGeometry(1,1,1),
@@ -46,10 +52,12 @@ function createObstacle() {
   obstacles.push(obstacle);
 }
 
+// 每2秒生成一个障碍物
 setInterval(() => {
   if(!gameOver) createObstacle();
 }, 2000);
 
+// 碰撞检测
 function checkCollision() {
   for(let obs of obstacles) {
     let dx = truck.position.x - obs.position.x;
@@ -67,20 +75,27 @@ function checkCollision() {
   }
 }
 
+// 动画循环
 function animate() {
   requestAnimationFrame(animate);
   if(gameOver) return;
 
+  // 卡车移动
   if(keys["ArrowLeft"] && truck.position.x > -4) truck.position.x -= 0.1;
   if(keys["ArrowRight"] && truck.position.x < 4) truck.position.x += 0.1;
 
+  // 障碍物前进
   for(let obs of obstacles) {
     obs.position.z += speed * 5;
   }
 
+  // 更新分数
   score += 1;
   updateHUD();
+
+  // 检测碰撞
   checkCollision();
+
   renderer.render(scene, camera);
 }
 animate();
