@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PolyTruck Offline</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body { margin: 0; overflow: hidden; background: #202020; }
+    #hud {
+      position: absolute; top: 10px; left: 10px; color: white;
+      font-size: 18px; font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="hud">Score: 0 | High Score: 0</div>
+  <script src="three.min.js"></script>
+  <script src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+</body>
+</html>
