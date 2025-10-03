@@ -2,7 +2,6 @@ const CACHE_NAME = "polytruck-v1";
 const ASSETS = [
   "/",
   "/index.html",
-  "/three.min.js",
   "/game.js",
   "/manifest.json"
 ];
